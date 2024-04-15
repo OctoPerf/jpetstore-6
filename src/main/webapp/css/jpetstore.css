@@ -136,6 +136,10 @@ a.Button:hover {
   voice-family: inherit;
 }
 
+#Logo img {
+    max-height: 60px;
+}
+
 body>#Logo {
   height: 9ex;
 }
@@ -150,7 +154,7 @@ body>#Logo {
   border-color: #ccc;
   float: left;
   background-color: #000;
-  color: #eaac00;
+  color: #2D97D4;
   text-decoration: none;
   font-family: helvetica, tahoma, arial, verdana, sans-serif;
   text-align: center;
@@ -160,7 +164,7 @@ body>#Logo {
 }
 
 #Menu, #Menu a, #Menu a:link, #Menu a:visited, #Menu a:hover {
-  color: #eaac00;
+  color: #2D97D4;
   text-decoration: none;
   font-family: helvetica, tahoma, arial, verdana, sans-serif;
 }
@@ -183,7 +187,7 @@ body>#Menu {
   float: left;
   text-align: center;
   background-color: #000;
-  color: #eaac00;
+  color: #2D97D4;
   line-height: 9ex;
   voice-family: "\"}\"";
   voice-family: inherit;
@@ -198,7 +202,7 @@ body>#Search {
   border-style: solid;
   border-color: #aaa;
   background-color: #666;
-  color: #eaac00;
+  color: #2D97D4;
 }
 
 #QuickLinks {
@@ -208,7 +212,8 @@ body>#Search {
 }
 
 #PoweredBy {
-  width: 30%;
+  width: 60%;
+  overflow: hidden;
   height: 9ex;
   margin: 0ex 0ex 0ex 0ex;
   padding: 0ex 0ex 0ex 0ex;
@@ -228,7 +233,7 @@ body>#PoweredBy {
 }
 
 #Banner {
-  width: 69%;
+  width: 39%;
   height: 9ex;
   margin: 0ex 0ex 0ex 0ex;
   padding: 0ex 0ex 0ex 0ex;
@@ -330,4 +335,18 @@ body>#Banner {
   float: left;
   background-color:#ccc;
   text-align:left;
+}
+
+#CTA{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 99%;
+  text-align: center;
+  background-color: #2D97D4;
+  color: white;
+}
+
+#CTA a, #CTA a:link, #CTA a:visited, #CTA a:hover {
+  color: white;
+  text-decoration: underline;
 }

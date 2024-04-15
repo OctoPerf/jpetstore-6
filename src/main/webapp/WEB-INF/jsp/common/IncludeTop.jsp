@@ -47,9 +47,11 @@
 <div id="Header">
 
 <div id="Logo">
-<div id="LogoContent"><stripes:link
+<div id="LogoContent">
+&nbsp;
+<stripes:link
 	beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean">
-	<img src="../images/logo-topbar.gif" />
+	<img src="../images/logo-topbar.svg" />
 </stripes:link></div>
 </div>
 

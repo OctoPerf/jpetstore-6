@@ -17,9 +17,14 @@
 --%>
 </div>
 
+<div id="CTA">
+Elevate you load-testing with <a href="https://octoperf.com">OctoPerf</a>!
+</div>
+
 <div id="Footer">
 
-<div id="PoweredBy">&nbsp;<a href="http://www.mybatis.org">www.mybatis.org</a>
+<div id="PoweredBy">
+&nbsp;&nbsp;Hosted by <a href="https://octoperf.com" target="_blank">https://octoperf.com</a>&nbsp;|&nbsp;Powered by <a href="https://mybatis.org/" target="_blank">www.mybatis.org</a>
 </div>
 
 <div id="Banner"><c:if test="${sessionScope.accountBean != null }">
