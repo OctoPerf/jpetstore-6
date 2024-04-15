@@ -65,8 +65,8 @@
     <cargo-maven3-plugin.version>1.10.12</cargo-maven3-plugin.version>
     <clirr.comparisonVersion>6.0.2</clirr.comparisonVersion>
 
-    <slf4j.version>2.0.12</slf4j.version>
-    <spring.version>5.3.32</spring.version>
+    <slf4j.version>2.0.13</slf4j.version>
+    <spring.version>5.3.34</spring.version>
     <assertj.version>3.25.3</assertj.version>
     <mockito.version>5.11.0</mockito.version>
     <hsqldb.version>2.7.2</hsqldb.version>
@@ -81,7 +81,7 @@
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
-      <version>3.5.15</version>
+      <version>3.5.16</version>
     </dependency>
     <dependency>
       <groupId>org.mybatis</groupId>
@@ -185,13 +185,13 @@
     <dependency>
       <groupId>com.codeborne</groupId>
       <artifactId>selenide</artifactId>
-      <version>7.2.1</version>
+      <version>7.2.3</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>htmlunit3-driver</artifactId>
-      <version>4.18.1</version>
+      <version>4.19.1</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
