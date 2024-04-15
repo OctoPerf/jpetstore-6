@@ -14,7 +14,7 @@
 #    limitations under the License.
 #
 
-FROM tomcat:11.0
+FROM tomcat:9
 
 MAINTAINER Jerome Loisel
 
