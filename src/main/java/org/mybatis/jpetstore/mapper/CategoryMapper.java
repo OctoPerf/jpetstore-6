@@ -1,5 +1,5 @@
 /*
- *    Copyright 2010-2022 the original author or authors.
+ *    Copyright 2010-2026 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -21,13 +21,24 @@ import org.mybatis.jpetstore.domain.Category;
 
 /**
  * The Interface CategoryMapper.
- *
- * @author Eduardo Macarron
  */
 public interface CategoryMapper {
 
+  /**
+   * Gets the category list.
+   *
+   * @return the category list
+   */
   List<Category> getCategoryList();
 
+  /**
+   * Get category.
+   *
+   * @param categoryId
+   *          the category id
+   *
+   * @return the category
+   */
   Category getCategory(String categoryId);
 
 }

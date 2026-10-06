@@ -1,5 +1,5 @@
 /*
- *    Copyright 2010-2022 the original author or authors.
+ *    Copyright 2010-2026 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -18,12 +18,19 @@ package org.mybatis.jpetstore.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.Month;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * The Class OrderTest.
+ */
 class OrderTest {
 
+  /**
+   * Init order.
+   */
   @Test
   void initOrder() {
     // given
@@ -55,7 +62,7 @@ class OrderTest {
 
     // then
     assertThat(order.getUsername()).isSameAs(account.getUsername());
-    assertThat(order.getOrderDate()).isBeforeOrEqualsTo(new Date());
+    assertThat(order.getOrderDate()).isBeforeOrEqualTo(LocalDateTime.now());
     assertThat(order.getShipAddress1()).isEqualTo(account.getAddress1());
     assertThat(order.getShipAddress2()).isEqualTo(account.getAddress2());
     assertThat(order.getShipCity()).isEqualTo(account.getCity());
@@ -82,6 +89,22 @@ class OrderTest {
     assertThat(order.getLineItems().get(0).getUnitPrice()).isEqualTo(new BigDecimal("2.05"));
     assertThat(order.getLineItems().get(0).getQuantity()).isEqualTo(2);
     assertThat(order.getLineItems().get(0).getTotal()).isEqualTo(new BigDecimal("4.10"));
+  }
+
+  /**
+   * Gets the formatted order date.
+   */
+  @Test
+  void getFormattedOrderDate() {
+    // given
+    Order order = new Order();
+    order.setOrderDate(LocalDateTime.of(2026, Month.AUGUST, 15, 13, 45, 30));
+
+    // when
+    String formattedOrderDate = order.getFormattedOrderDate();
+
+    // then
+    assertThat(formattedOrderDate).isEqualTo("2026/08/15 13:45:30");
   }
 
 }

@@ -1,5 +1,5 @@
 /*
- *    Copyright 2010-2022 the original author or authors.
+ *    Copyright 2010-2026 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 package org.mybatis.jpetstore.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -29,17 +29,22 @@ import org.mybatis.jpetstore.domain.Account;
 import org.mybatis.jpetstore.mapper.AccountMapper;
 
 /**
- * @author Eduardo Macarron
+ * The Class AccountServiceTest.
  */
 @ExtendWith(MockitoExtension.class)
 class AccountServiceTest {
 
+  /** The account mapper. */
   @Mock
   private AccountMapper accountMapper;
 
+  /** The account service. */
   @InjectMocks
   private AccountService accountService;
 
+  /**
+   * Should call the mapper to insert an account.
+   */
   @Test
   void shouldCallTheMapperToInsertAnAccount() {
     // given
@@ -49,11 +54,14 @@ class AccountServiceTest {
     accountService.insertAccount(account);
 
     // then
-    verify(accountMapper).insertAccount(eq(account));
-    verify(accountMapper).insertProfile(eq(account));
-    verify(accountMapper).insertSignon(eq(account));
+    verify(accountMapper).insertAccount(account);
+    verify(accountMapper).insertProfile(account);
+    verify(accountMapper).insertSignon(account);
   }
 
+  /**
+   * Should call the mapper to update an account.
+   */
   @Test
   void shouldCallTheMapperToUpdateAnAccount() {
     // given
@@ -64,11 +72,50 @@ class AccountServiceTest {
     accountService.updateAccount(account);
 
     // then
-    verify(accountMapper).updateAccount(eq(account));
-    verify(accountMapper).updateProfile(eq(account));
-    verify(accountMapper).updateSignon(eq(account));
+    verify(accountMapper).updateAccount(account);
+    verify(accountMapper).updateProfile(account);
+    verify(accountMapper).updateSignon(account);
   }
 
+  /**
+   * Should not call the mapper to update signon when password is null.
+   */
+  @Test
+  void shouldNotCallTheMapperToUpdateSignonWhenPasswordIsNull() {
+    // given
+    Account account = new Account();
+    account.setPassword(null);
+
+    // when
+    accountService.updateAccount(account);
+
+    // then
+    verify(accountMapper).updateAccount(account);
+    verify(accountMapper).updateProfile(account);
+    verify(accountMapper, never()).updateSignon(account);
+  }
+
+  /**
+   * Should not call the mapper to update signon when password is empty.
+   */
+  @Test
+  void shouldNotCallTheMapperToUpdateSignonWhenPasswordIsEmpty() {
+    // given
+    Account account = new Account();
+    account.setPassword("");
+
+    // when
+    accountService.updateAccount(account);
+
+    // then
+    verify(accountMapper).updateAccount(account);
+    verify(accountMapper).updateProfile(account);
+    verify(accountMapper, never()).updateSignon(account);
+  }
+
+  /**
+   * Should call the mapper to get account an username.
+   */
   @Test
   void shouldCallTheMapperToGetAccountAnUsername() {
     // given
@@ -83,6 +130,9 @@ class AccountServiceTest {
     assertThat(account).isSameAs(expectedAccount);
   }
 
+  /**
+   * Should call the mapper to get account an username and password.
+   */
   @Test
   void shouldCallTheMapperToGetAccountAnUsernameAndPassword() {
     // given
