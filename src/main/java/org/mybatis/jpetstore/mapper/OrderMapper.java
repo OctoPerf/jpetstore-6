@@ -1,5 +1,5 @@
 /*
- *    Copyright 2010-2022 the original author or authors.
+ *    Copyright 2010-2026 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -21,17 +21,43 @@ import org.mybatis.jpetstore.domain.Order;
 
 /**
  * The Interface OrderMapper.
- *
- * @author Eduardo Macarron
  */
 public interface OrderMapper {
 
+  /**
+   * Get orders by username.
+   *
+   * @param username
+   *          the username
+   *
+   * @return the list
+   */
   List<Order> getOrdersByUsername(String username);
 
+  /**
+   * Get order.
+   *
+   * @param orderId
+   *          the order id
+   *
+   * @return the order
+   */
   Order getOrder(int orderId);
 
+  /**
+   * Insert order.
+   *
+   * @param order
+   *          the order
+   */
   void insertOrder(Order order);
 
+  /**
+   * Insert order status.
+   *
+   * @param order
+   *          the order
+   */
   void insertOrderStatus(Order order);
 
 }

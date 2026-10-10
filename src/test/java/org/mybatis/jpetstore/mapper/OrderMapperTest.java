@@ -1,5 +1,5 @@
 /*
- *    Copyright 2010-2022 the original author or authors.
+ *    Copyright 2010-2026 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
 import java.util.Map;
 
@@ -32,23 +33,31 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class OrderMapperTest.
+ */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = MapperTestContext.class)
 @Transactional
 class OrderMapperTest {
 
+  /** The mapper. */
   @Autowired
   private OrderMapper mapper;
 
+  /** The jdbc template. */
   @Autowired
   private JdbcTemplate jdbcTemplate;
 
+  /**
+   * Insert order.
+   */
   @Test
   void insertOrder() {
     // given
     Order order = new Order();
     order.setOrderId(1);
-    order.setOrderDate(java.sql.Timestamp.valueOf(LocalDateTime.of(2018, 12, 31, 23, 59, 59)));
+    order.setOrderDate(LocalDateTime.of(2018, Month.DECEMBER, 31, 23, 59, 59));
     order.setUsername("j2ee");
     order.setCardType("Visa");
     order.setCreditCard("1234 5678 9012 3456");
@@ -77,10 +86,10 @@ class OrderMapperTest {
     mapper.insertOrder(order);
 
     // then
-    Map<String, Object> record = jdbcTemplate.queryForMap("SELECT * FROM orders WHERE orderid = ?", 1);
-    assertThat(record).hasSize(25).containsEntry("ORDERID", order.getOrderId())
+    Map<String, Object> recordMap = jdbcTemplate.queryForMap("SELECT * FROM orders WHERE orderid = ?", 1);
+    assertThat(recordMap).hasSize(25).containsEntry("ORDERID", order.getOrderId())
         .containsEntry("USERID", order.getUsername())
-        .containsEntry("ORDERDATE", java.sql.Date.valueOf(LocalDate.of(2018, 12, 31)))
+        .containsEntry("ORDERDATE", java.sql.Date.valueOf(LocalDate.of(2018, Month.DECEMBER, 31)))
         .containsEntry("SHIPADDR1", order.getShipAddress1()).containsEntry("SHIPADDR2", order.getShipAddress2())
         .containsEntry("SHIPCITY", order.getShipCity()).containsEntry("SHIPSTATE", order.getShipState())
         .containsEntry("SHIPZIP", order.getShipZip()).containsEntry("SHIPCOUNTRY", order.getShipCountry())
@@ -97,32 +106,38 @@ class OrderMapperTest {
 
   }
 
+  /**
+   * Insert order status.
+   */
   @Test
   void insertOrderStatus() {
     // given
     Order order = new Order();
     order.setOrderId(1);
-    order.setOrderDate(java.sql.Timestamp.valueOf(LocalDateTime.of(2018, 12, 31, 23, 59, 59)));
+    order.setOrderDate(LocalDateTime.of(2018, Month.DECEMBER, 31, 23, 59, 59));
     order.setStatus("OK");
 
     // when
     mapper.insertOrderStatus(order);
 
     // then
-    Map<String, Object> record = jdbcTemplate.queryForMap("SELECT * FROM orderstatus WHERE orderid = ?", 1);
-    assertThat(record).hasSize(4).containsEntry("ORDERID", order.getOrderId())
+    Map<String, Object> recordMap = jdbcTemplate.queryForMap("SELECT * FROM orderstatus WHERE orderid = ?", 1);
+    assertThat(recordMap).hasSize(4).containsEntry("ORDERID", order.getOrderId())
         .containsEntry("LINENUM", order.getOrderId())
-        .containsEntry("TIMESTAMP", java.sql.Date.valueOf(LocalDate.of(2018, 12, 31)))
+        .containsEntry("TIMESTAMP", java.sql.Date.valueOf(LocalDate.of(2018, Month.DECEMBER, 31)))
         .containsEntry("STATUS", order.getStatus());
 
   }
 
+  /**
+   * Gets the orders by username.
+   */
   @Test
   void getOrdersByUsername() {
     // given
     Order newOrder = new Order();
     newOrder.setOrderId(1);
-    newOrder.setOrderDate(java.sql.Timestamp.valueOf(LocalDateTime.of(2018, 12, 31, 23, 59, 59)));
+    newOrder.setOrderDate(LocalDateTime.of(2018, Month.DECEMBER, 31, 12, 59, 59));
     newOrder.setStatus("OK");
     newOrder.setUsername("j2ee");
     newOrder.setCardType("Visa");
@@ -156,7 +171,7 @@ class OrderMapperTest {
     // then
     assertThat(orders).hasSize(1);
     assertThat(orders.get(0).getOrderId()).isEqualTo(newOrder.getOrderId());
-    assertThat(orders.get(0).getOrderDate()).isEqualTo(java.sql.Date.valueOf(LocalDate.of(2018, 12, 31)));
+    assertThat(orders.get(0).getOrderDate()).isEqualTo(LocalDateTime.of(2018, Month.DECEMBER, 31, 0, 0));
     assertThat(orders.get(0).getCardType()).isEqualTo(newOrder.getCardType());
     assertThat(orders.get(0).getCreditCard()).isEqualTo(newOrder.getCreditCard());
     assertThat(orders.get(0).getExpiryDate()).isEqualTo(newOrder.getExpiryDate());
@@ -181,12 +196,15 @@ class OrderMapperTest {
     assertThat(orders.get(0).getShipToLastName()).isEqualTo(newOrder.getShipToLastName());
   }
 
+  /**
+   * Gets the order.
+   */
   @Test
   void getOrder() {
     // given
     Order newOrder = new Order();
     newOrder.setOrderId(1);
-    newOrder.setOrderDate(java.sql.Timestamp.valueOf(LocalDateTime.of(2018, 12, 31, 23, 59, 59)));
+    newOrder.setOrderDate(LocalDateTime.of(2018, Month.DECEMBER, 31, 12, 59, 59));
     newOrder.setStatus("OK");
     newOrder.setUsername("j2ee");
     newOrder.setCardType("Visa");
@@ -219,7 +237,7 @@ class OrderMapperTest {
 
     // then
     assertThat(order.getOrderId()).isEqualTo(newOrder.getOrderId());
-    assertThat(order.getOrderDate()).isEqualTo(java.sql.Date.valueOf(LocalDate.of(2018, 12, 31)));
+    assertThat(order.getOrderDate()).isEqualTo(LocalDateTime.of(2018, Month.DECEMBER, 31, 0, 0));
     assertThat(order.getCardType()).isEqualTo(newOrder.getCardType());
     assertThat(order.getCreditCard()).isEqualTo(newOrder.getCreditCard());
     assertThat(order.getExpiryDate()).isEqualTo(newOrder.getExpiryDate());

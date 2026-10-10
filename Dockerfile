@@ -14,12 +14,14 @@
 #    limitations under the License.
 #
 
-FROM tomcat:9
+FROM tomcat:11.0-jdk21-temurin
 
 MAINTAINER Jerome Loisel
 
+# The app still targets javax.servlet (Spring 5.3): Tomcat converts WARs dropped
+# in webapps-javaee to jakarta.servlet at deploy time.
 RUN rm -rf ${CATALINA_HOME}/webapps/ ${CATALINA_HOME}/work/Catalina/localhost
-COPY target/ROOT.war ${CATALINA_HOME}/webapps/
+COPY target/ROOT.war ${CATALINA_HOME}/webapps-javaee/
 
 EXPOSE 8080
 

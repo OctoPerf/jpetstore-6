@@ -1,5 +1,5 @@
 /**
- *    Copyright 2010-2022 the original author or authors.
+ *    Copyright 2010-2026 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -132,8 +132,6 @@ a.Button:hover {
   background-color: #000;
   color: #fff;
   line-height: 9ex;
-  voice-family: "\"}\"";
-  voice-family: inherit;
 }
 
 #Logo img {
@@ -159,8 +157,6 @@ body>#Logo {
   font-family: helvetica, tahoma, arial, verdana, sans-serif;
   text-align: center;
   line-height: 9ex;
-  voice-family: "\"}\"";
-  voice-family: inherit;
 }
 
 #Menu, #Menu a, #Menu a:link, #Menu a:visited, #Menu a:hover {
@@ -171,9 +167,6 @@ body>#Logo {
 
 body>#Menu {
   height: 9ex;
-}
-
- {
 }
 
 #Search {
@@ -189,8 +182,6 @@ body>#Menu {
   background-color: #000;
   color: #2D97D4;
   line-height: 9ex;
-  voice-family: "\"}\"";
-  voice-family: inherit;
 }
 
 body>#Search {
@@ -224,8 +215,6 @@ body>#Search {
   background-color: #000;
   color: #fff;
   line-height: 9ex;
-  voice-family: "\"}\"";
-  voice-family: inherit;
 }
 
 body>#PoweredBy {
@@ -244,8 +233,6 @@ body>#PoweredBy {
   background-color: #000;
   color: #fff;
   line-height: 9ex;
-  voice-family: "\"}\"";
-  voice-family: inherit;
 }
 
 body>#Banner {

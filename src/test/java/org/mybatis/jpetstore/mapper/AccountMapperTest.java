@@ -1,5 +1,5 @@
 /*
- *    Copyright 2010-2022 the original author or authors.
+ *    Copyright 2010-2026 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -28,17 +28,25 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class AccountMapperTest.
+ */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = MapperTestContext.class)
 @Transactional
 class AccountMapperTest {
 
+  /** The mapper. */
   @Autowired
   private AccountMapper mapper;
 
+  /** The jdbc template. */
   @Autowired
   private JdbcTemplate jdbcTemplate;
 
+  /**
+   * Gets the account by username.
+   */
   @Test
   void getAccountByUsername() {
     // given
@@ -64,10 +72,13 @@ class AccountMapperTest {
     assertThat(account.getFavouriteCategoryId()).isEqualTo("DOGS");
     assertThat(account.isListOption()).isTrue();
     assertThat(account.isBannerOption()).isTrue();
-    assertThat(account.getBannerName()).isEqualTo("<image src=\"../images/banner_dogs.gif\">");
+    assertThat(account.getBannerName()).isEqualTo("<image src=\"/images/banner_dogs.gif\">");
 
   }
 
+  /**
+   * Gets the account by username and password.
+   */
   @Test
   void getAccountByUsernameAndPassword() {
     // given
@@ -94,10 +105,13 @@ class AccountMapperTest {
     assertThat(account.getFavouriteCategoryId()).isEqualTo("CATS");
     assertThat(account.isListOption()).isTrue();
     assertThat(account.isBannerOption()).isTrue();
-    assertThat(account.getBannerName()).isEqualTo("<image src=\"../images/banner_cats.gif\">");
+    assertThat(account.getBannerName()).isEqualTo("<image src=\"/images/banner_cats.gif\">");
 
   }
 
+  /**
+   * Insert account.
+   */
   @Test
   void insertAccount() {
 
@@ -120,8 +134,8 @@ class AccountMapperTest {
     mapper.insertAccount(account);
 
     // then
-    Map<String, Object> record = jdbcTemplate.queryForMap("SELECT * FROM account WHERE userid = ?", "mybatis");
-    assertThat(record).hasSize(12).containsEntry("USERID", account.getUsername())
+    Map<String, Object> recordMap = jdbcTemplate.queryForMap("SELECT * FROM account WHERE userid = ?", "mybatis");
+    assertThat(recordMap).hasSize(12).containsEntry("USERID", account.getUsername())
         .containsEntry("EMAIL", account.getEmail()).containsEntry("FIRSTNAME", account.getFirstName())
         .containsEntry("LASTNAME", account.getLastName()).containsEntry("STATUS", account.getStatus())
         .containsEntry("ADDR1", account.getAddress1()).containsEntry("ADDR2", account.getAddress2())
@@ -130,6 +144,9 @@ class AccountMapperTest {
         .containsEntry("PHONE", account.getPhone());
   }
 
+  /**
+   * Insert profile.
+   */
   @Test
   void insertProfile() {
 
@@ -145,14 +162,17 @@ class AccountMapperTest {
     mapper.insertProfile(account);
 
     // then
-    Map<String, Object> record = jdbcTemplate.queryForMap("SELECT * FROM profile WHERE userid = ?", "mybatis");
+    Map<String, Object> recordMap = jdbcTemplate.queryForMap("SELECT * FROM profile WHERE userid = ?", "mybatis");
 
-    assertThat(record).hasSize(5).containsEntry("USERID", account.getUsername())
+    assertThat(recordMap).hasSize(5).containsEntry("USERID", account.getUsername())
         .containsEntry("LANGPREF", account.getLanguagePreference())
         .containsEntry("FAVCATEGORY", account.getFavouriteCategoryId()).containsEntry("MYLISTOPT", 1)
         .containsEntry("BANNEROPT", 0);
   }
 
+  /**
+   * Insert signon.
+   */
   @Test
   void insertSignon() {
 
@@ -165,12 +185,15 @@ class AccountMapperTest {
     mapper.insertSignon(account);
 
     // then
-    Map<String, Object> record = jdbcTemplate.queryForMap("SELECT * FROM signon WHERE username = ?", "mybatis");
+    Map<String, Object> recordMap = jdbcTemplate.queryForMap("SELECT * FROM signon WHERE username = ?", "mybatis");
 
-    assertThat(record).hasSize(2).containsEntry("USERNAME", account.getUsername()).containsEntry("PASSWORD",
+    assertThat(recordMap).hasSize(2).containsEntry("USERNAME", account.getUsername()).containsEntry("PASSWORD",
         account.getPassword());
   }
 
+  /**
+   * Update account.
+   */
   @Test
   void updateAccount() {
 
@@ -193,9 +216,9 @@ class AccountMapperTest {
     mapper.updateAccount(account);
 
     // then
-    Map<String, Object> record = jdbcTemplate.queryForMap("SELECT * FROM account WHERE userid = ?", "j2ee");
+    Map<String, Object> recordMap = jdbcTemplate.queryForMap("SELECT * FROM account WHERE userid = ?", "j2ee");
 
-    assertThat(record).hasSize(12).containsEntry("USERID", account.getUsername())
+    assertThat(recordMap).hasSize(12).containsEntry("USERID", account.getUsername())
         .containsEntry("EMAIL", account.getEmail()).containsEntry("FIRSTNAME", account.getFirstName())
         .containsEntry("LASTNAME", account.getLastName()).containsEntry("STATUS", account.getStatus())
         .containsEntry("ADDR1", account.getAddress1()).containsEntry("ADDR2", account.getAddress2())
@@ -204,6 +227,9 @@ class AccountMapperTest {
         .containsEntry("PHONE", account.getPhone());
   }
 
+  /**
+   * Update profile.
+   */
   @Test
   void updateProfile() {
 
@@ -219,14 +245,17 @@ class AccountMapperTest {
     mapper.updateProfile(account);
 
     // then
-    Map<String, Object> record = jdbcTemplate.queryForMap("SELECT * FROM profile WHERE userid = ?", "j2ee");
+    Map<String, Object> recordMap = jdbcTemplate.queryForMap("SELECT * FROM profile WHERE userid = ?", "j2ee");
 
-    assertThat(record).hasSize(5).containsEntry("USERID", account.getUsername())
+    assertThat(recordMap).hasSize(5).containsEntry("USERID", account.getUsername())
         .containsEntry("LANGPREF", account.getLanguagePreference())
         .containsEntry("FAVCATEGORY", account.getFavouriteCategoryId()).containsEntry("MYLISTOPT", 0)
         .containsEntry("BANNEROPT", 0);
   }
 
+  /**
+   * Update signon.
+   */
   @Test
   void updateSignon() {
 
@@ -239,9 +268,9 @@ class AccountMapperTest {
     mapper.updateSignon(account);
 
     // then
-    Map<String, Object> record = jdbcTemplate.queryForMap("SELECT * FROM signon WHERE username = ?", "j2ee");
+    Map<String, Object> recordMap = jdbcTemplate.queryForMap("SELECT * FROM signon WHERE username = ?", "j2ee");
 
-    assertThat(record).hasSize(2).containsEntry("USERNAME", account.getUsername()).containsEntry("PASSWORD",
+    assertThat(recordMap).hasSize(2).containsEntry("USERNAME", account.getUsername()).containsEntry("PASSWORD",
         account.getPassword());
   }
 

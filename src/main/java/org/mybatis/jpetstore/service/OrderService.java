@@ -1,5 +1,5 @@
 /*
- *    Copyright 2010-2022 the original author or authors.
+ *    Copyright 2010-2026 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -31,17 +31,31 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The Class OrderService.
- *
- * @author Eduardo Macarron
  */
 @Service
 public class OrderService {
 
+  /** The item mapper. */
   private final ItemMapper itemMapper;
+  /** The order mapper. */
   private final OrderMapper orderMapper;
+  /** The sequence mapper. */
   private final SequenceMapper sequenceMapper;
+  /** The line item mapper. */
   private final LineItemMapper lineItemMapper;
 
+  /**
+   * Instantiates a new order service.
+   *
+   * @param itemMapper
+   *          the item mapper
+   * @param orderMapper
+   *          the order mapper
+   * @param sequenceMapper
+   *          the sequence mapper
+   * @param lineItemMapper
+   *          the line item mapper
+   */
   public OrderService(ItemMapper itemMapper, OrderMapper orderMapper, SequenceMapper sequenceMapper,
       LineItemMapper lineItemMapper) {
     this.itemMapper = itemMapper;
@@ -121,7 +135,7 @@ public class OrderService {
   public int getNextId(String name) {
     Sequence sequence = sequenceMapper.getSequence(new Sequence(name, -1));
     if (sequence == null) {
-      throw new RuntimeException(
+      throw new IllegalArgumentException(
           "Error: A null sequence was returned from the database (could not get next " + name + " sequence).");
     }
     Sequence parameterObject = new Sequence(name, sequence.getNextId() + 1);

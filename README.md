@@ -4,16 +4,12 @@ MyBatis JPetStore
 [![Java CI](https://github.com/mybatis/jpetstore-6/actions/workflows/ci.yaml/badge.svg)](https://github.com/mybatis/jpetstore-6/actions/workflows/ci.yaml)
 [![Container Support](https://github.com/mybatis/jpetstore-6/actions/workflows/support.yaml/badge.svg)](https://github.com/mybatis/jpetstore-6/actions/workflows/support.yaml)
 [![Coverage Status](https://coveralls.io/repos/github/mybatis/jpetstore-6/badge.svg?branch=master)](https://coveralls.io/github/mybatis/jpetstore-6?branch=master)
+[![Docs](https://img.shields.io/badge/docs-mybatis.org-blue?logo=github)](https://mybatis.org/jpetstore-6/)
 [![License](https://img.shields.io/:license-apache-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 ![mybatis-jpetstore](https://mybatis.org/images/mybatis-logo.png)
 
 JPetStore 6 is a full web application built on top of MyBatis 3, Spring 5 and Stripes.
-
-Essentials
-----------
-
-* [See the docs](http://www.mybatis.org/jpetstore-6)
 
 ## Other versions that you may want to know about
 
@@ -40,30 +36,29 @@ Running JPetStore sample under Tomcat (using the [cargo-maven2-plugin](https://c
 - Startup the Tomcat server and deploy web application
 
   ```
-  $ ./mvnw cargo:run -P tomcat90
+  $ ./mvnw cargo:run -P tomcat9
   ```
 
   > Note:
   >
   > We provide maven profiles per application server as follow:
   >
-  > | Profile        | Description |
-  > | -------------- | ----------- |
-  > | tomcat90       | Running under the Tomcat 9.0 |
-  > | tomcat85       | Running under the Tomcat 8.5 |
-  > | tomee80        | Running under the TomEE 8.0(Java EE 8) |
-  > | tomee71        | Running under the TomEE 7.1(Java EE 7) |
-  > | wildfly26      | Running under the WildFly 26(Java EE 8) |
-  > | wildfly13      | Running under the WildFly 13(Java EE 7) |
-  > | liberty-ee8    | Running under the WebSphere Liberty(Java EE 8) |
-  > | liberty-ee7    | Running under the WebSphere Liberty(Java EE 7) |
-  > | jetty          | Running under the Jetty 9 |
-  > | glassfish5     | Running under the GlassFish 5(Java EE 8) |
-  > | glassfish4     | Running under the GlassFish 4(Java EE 7) |
-  > | resin          | Running under the Resin 4 |
+  > | Profile             | Description                         |
+  > | ------------------- | ----------------------------------- |
+  > | tomcat9 (preferred) | Running under the Tomcat 9.0        |
+  > | glassfish5          | Running under the GlassFish 5       |
+  > | jetty12-ee8         | Running under the Jetty 12          |
+  > | liberty26-ee8       | Running under the WebSphere Liberty |
+  > | payara5             | Running under the Payara 5          |
+  > | resin4              | Running under the Resin 4           |
+  > | tomee8              | Running under the TomEE 8.0         |
+  > | wildfly26           | Running under the WildFly 26        |
 
-- Run application in browser http://localhost:8080/jpetstore/ 
+- Run application in browser http://localhost:8080/jpetstore/
 - Press Ctrl-C to stop the server.
+
+- When using 'glassfish5', it must run under java 8 as it does not work with newer versions.  The code is set to 'D:/jdk/jdk-1.8.0.501'.  Your usage likely differs, so simply call with '-Dcargo.java.home=PATH-TO-JDK8'.
+- When using 'payara', the full maven buil must run under java 17, this is unlike glassfish5 due to how it connects with cargo.  In that case, use '-Denforcer.skip=true' to accomplish.
 
 ## Run on Docker
 ```
@@ -80,5 +75,5 @@ docker compose up -d
 Perform integration tests for screen transition.
 
 ```
-$ ./mvnw clean verify -P tomcat90
+$ ./mvnw clean verify -P tomcat9
 ```
