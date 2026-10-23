@@ -10,5 +10,5 @@ image: package
 run: image
 	docker run -p 8080:8080 --rm $(IMAGE)
 
-push: image
-	docker push $(IMAGE)
+push: package
+	docker buildx build --platform linux/amd64,linux/arm64 --provenance=false --sbom=false --pull -t $(IMAGE) --push .
